@@ -1,0 +1,35 @@
+{
+  "name": "apng-player",
+  "version": "0.0.1",
+  "description": "apngPlayer use canvas",
+  "main": "dist/apng-player-umd.min.js",
+  "scripts": {
+    "build": "rollup -c",
+    "start": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Magic-zhu/apngPlayer.git"
+  },
+  "keywords": [
+    "apng",
+    "canvas",
+    "javascript"
+  ],
+  "author": "magic-zhu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Magic-zhu/apngPlayer/issues"
+  },
+  "devDependencies": {
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "typescript": "^4.1.3"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "module": "dist/apng-player-es.min.js"
+}

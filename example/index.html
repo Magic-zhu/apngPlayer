@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .origin {
+      width: 402.6px;
+      height: 300px;
+      border: 1px solid;
+    }
+
+    .apng-image {
+      width: 402.6px;
+      height: 300px;
+      border: 1px solid;
+      background-color: black;
+    }
+
+    .apng-image-copy {
+      width: 402.6px;
+      height: 300px;
+      border: 1px solid;
+    }
+
+    .label {
+      width: 200px;
+      display: block;
+    }
+
+    body {
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="block" style="background:black;">
+    <span class="label">原始</span>
+    <img src='http://cdn.magiczhu.cn/2021723-16545.png' class='origin' />
+  </div>
+  <div class="block">
+    <span class="label">只播放50-70帧</span>
+    <img src='http://cdn.magiczhu.cn/2021723-16545.png' class='apng-image1 apng-image' style="opacity: 0;width: 400px;height: 400px;" />
+    <img src='http://cdn.magiczhu.cn/2021723-16545.png' class='apng-image3 apng-image' data-src='' style="opacity: 0"/>
+  </div>
+  <div class="block">
+    <span class="label">控制</span>
+    <img src='http://cdn.magiczhu.cn/2021723-16545.png' class='apng-image2 apng-image' style="opacity: 0;" />
+    <div>
+      <button id="btn1">暂停</button>
+      <button id="btn2">重新开始</button>
+      <button id="btn3">开始</button>
+      <button id="btn4">停止</button>
+      <button id='btn5'>开始后第10帧停止</button>
+      <button id='btn6'>只播放2次</button>
+      <button id='btn7'>清除画布</button>
+    </div>
+  </div>
+
+</body>
+<script src='../build/mot-plugin-apng-iife.min.js'></script>
+<script>
+  let apng = new APNG()
+  apng.isSupport()
+    .then(() => {
+      console.log('not support')
+    })
+    .catch(() => {
+      console.log('support')
+    })
+  var image1 = document.querySelector(".apng-image1");
+  var image2 = document.querySelector(".apng-image2");
+  var image3 = document.querySelector(".apng-image3");
+  apng.animateImage(image1, true, true, '2d')
+    .then(anim => {
+      // anim.setOptions({ playNum: 1 })
+      anim.play([1, 2])
+      // anim.pause(1)
+      console.log(anim)
+    })
+  apng.animateImage(image3, false ,true)
+    .then(anim => {
+      anim.before((ctx, f) => {
+          ctx.fillStyle = 'red'
+          ctx.fillRect(0, 0, 100 + f * 3, 100 + f * 3)
+      })
+      // anim.after((ctx, f) => {
+      //     ctx.fillStyle = 'blue'
+      //     ctx.fillRect(200, 200, 100 + f * 3, 100 + f * 3)
+      // })
+      anim.setOptions({ playNum: 1 })
+      anim.play()
+
+      anim.on('allStop', () => {
+        console.log('here')
+      })
+    })
+  apng.animateImage(image2, false,true)
+    .then(anim => {
+      console.log(anim)
+      anim.once('stop', () => {
+        console.log('播放完成')
+      })
+      document.getElementById('btn1').addEventListener('click', () => {
+        anim.pause()
+      })
+      document.getElementById('btn2').addEventListener('click', () => {
+        anim.start()
+      })
+      document.getElementById('btn3').addEventListener('click', () => {
+        anim.setOptions({ keep: true })
+        anim.play()
+      })
+      document.getElementById('btn4').addEventListener('click', () => {
+        anim.stop()
+      })
+      document.getElementById('btn5').addEventListener('click', () => {
+        anim.play()
+        anim.pause(10)
+      })
+      document.getElementById('btn6').addEventListener('click', () => {
+        anim.setOptions({ playNum: 2 })
+        anim.play()
+      })
+      document.getElementById('btn7').addEventListener('click', () => {
+        anim.clear()
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+</script>
+
+</html>
