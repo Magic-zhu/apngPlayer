@@ -1,5 +1,5 @@
-import { AnimationOptions, HookMap } from './interface';
-import { glDrawImage } from './WebGL';
+import { AnimationOptions, HookMap } from '../interface';
+import { glDrawImage } from '../WebGL';
 class Animation {
   width: number;
   height: number;

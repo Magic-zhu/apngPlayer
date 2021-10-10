@@ -1,6 +1,6 @@
 class Loader {
 
-    loadUrl(url:string){
+    loadUrl(url:string):Promise<ArrayBuffer>{
         return new Promise((resolve,reject)=>{
             const xhr:XMLHttpRequest = new XMLHttpRequest()
             xhr.open('GET', url)

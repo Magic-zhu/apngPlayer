@@ -1,5 +1,5 @@
 {
-  "name": "apng-player",
+  "name": "apng-player.ts",
   "version": "0.0.1",
   "description": "apngPlayer use canvas",
   "main": "dist/apng-player-umd.min.js",
@@ -31,5 +31,8 @@
     "src",
     "dist"
   ],
-  "module": "dist/apng-player-es.min.js"
+  "module": "dist/apng-player-es.min.js",
+  "dependencies": {
+    "eslint": "^8.0.0"
+  }
 }
