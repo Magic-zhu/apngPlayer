@@ -1,4 +1,5 @@
-const PNG_SIGNATURE_BYTES: Uint8Array = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]) 
+import {Warn} from '../utils/warn'
+const PNG_SIGNATURE_BYTES: Uint8Array = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
 class ApngParser {
 
     buffer:ArrayBuffer
@@ -6,9 +7,10 @@ class ApngParser {
     constructor(buffer:ArrayBuffer) {
         let bytes: Uint8Array = new Uint8Array(buffer);
         if(!this.checkPngSignature(bytes)){
-            throw new Error("Not a PNG file (invalid file signature)")
+          Warn("Not a PNG file (invalid file signature)",2)
+        }else{
+          this.parse(bytes)
         }
-        this.parse(bytes)
     }
 
     checkPngSignature(bytes: Uint8Array):boolean {

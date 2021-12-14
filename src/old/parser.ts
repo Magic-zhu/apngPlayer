@@ -1,20 +1,20 @@
 import DAnimation from './old/animation'
 import crc32 from './crc32'
-import Loader from '../Loader';
+import Loader from '../core/loader';
 import { FrameItem } from './interface'
 //png签名
 const PNG_SIGNATURE_BYTES: Uint8Array = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
 class Parser extends Loader {
 
-    // 缓存表 
+    // 缓存表
     urlBuffer = {}
     url2Promise = {}
 
     /**
-     * 
-     * @param url 
+     *
+     * @param url
      * @param independent - 是否需要独立控制器
-     * @returns 
+     * @returns
      */
     async urlParse(url: string, independent = false): Promise<any> {
         // 加载apng array buffer 并保存
@@ -38,7 +38,7 @@ class Parser extends Loader {
 
     /**
      * 校验png签名
-     * @param bytes 
+     * @param bytes
      */
     checkPngSignature(bytes: Uint8Array): boolean {
         for (let i = 0; i < PNG_SIGNATURE_BYTES.length; i++) {
@@ -51,7 +51,7 @@ class Parser extends Loader {
 
     /**
      * 校验是不是apng
-     * @param bytes 
+     * @param bytes
     */
     // isAnimated(bytes: Uint8Array): boolean {
     //     // 校验 actl:动画控制块有没有 (是不是apng)
